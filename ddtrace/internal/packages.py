@@ -186,6 +186,39 @@ def _root_module(path: Path) -> str:
     raise ValueError(msg)
 
 
+def _relative_to_known_root(path: Path) -> t.Optional[Path]:
+    """Return path relative to the site-packages-like root that contains it.
+    Only dependency roots are considered (purelib/platlib and site-packages dirs).
+    Returns None when path is not under such a root.
+    """
+    for parent_path in (purelib_path, platlib_path):
+        try:
+            return path.resolve().relative_to(parent_path)
+        except ValueError:
+            pass
+
+    min_relative_path: t.Optional[Path] = None
+    for parent_path in resolve_sys_path():
+        if parent_path.name != "site-packages":
+            continue
+        try:
+            relative = path.relative_to(parent_path)
+        except ValueError:
+            continue
+        if min_relative_path is None or len(relative.parents) < len(min_relative_path.parents):
+            min_relative_path = relative
+    if min_relative_path is not None:
+        return min_relative_path
+
+    for s in path.parents:
+        if s.parent.name == "site-packages":
+            try:
+                return path.relative_to(s.parent)
+            except ValueError:
+                pass
+    return None
+
+
 @callonce
 def _package_for_root_module_mapping() -> t.Optional[dict[str, Distribution]]:
     import importlib.metadata as importlib_metadata
@@ -268,6 +301,22 @@ def filename_to_package(filename: t.Union[str, Path]) -> t.Optional[Distribution
 
     try:
         path = Path(filename) if isinstance(filename, str) else filename
+
+        # Longest-prefix match against the mapping. Namespace distributions can
+        # share an intermediate level (google/cloud/storage vs
+        # google/cloud/bigquery), so the most specific (deepest) mapped prefix
+        # must win; _root_module only yields a fixed 2-level key and cannot tell
+        # the siblings apart. The probe is anchored at the site-packages-relative
+        # root, so a subpackage that happens to share a name with another
+        # top-level dist cannot mismatch.
+        relative = _relative_to_known_root(path)
+        if relative is not None:
+            parts = relative.parts
+            for end in range(len(parts), 0, -1):
+                hit = mapping.get("/".join(parts[:end]))
+                if hit is not None:
+                    return hit
+
         # Avoid calling .resolve() on the path here to prevent breaking symlink matching in `_root_module`.
         root_module_path = _root_module(path)
         if root_module_path in mapping:
