@@ -3459,6 +3459,48 @@
         }
     },
     {
+        "dependency": "mistralai",
+        "integration": "mistralai",
+        "auto-instrumented": true,
+        "python_versions": {
+            "3.10": {
+                "minimum_package_version": "2.4.9",
+                "maximum_package_version": "2.4.9",
+                "tested_versions": [
+                    "2.4.9"
+                ]
+            },
+            "3.11": {
+                "minimum_package_version": "2.4.9",
+                "maximum_package_version": "2.4.9",
+                "tested_versions": [
+                    "2.4.9"
+                ]
+            },
+            "3.12": {
+                "minimum_package_version": "2.4.9",
+                "maximum_package_version": "2.4.9",
+                "tested_versions": [
+                    "2.4.9"
+                ]
+            },
+            "3.13": {
+                "minimum_package_version": "2.4.9",
+                "maximum_package_version": "2.4.9",
+                "tested_versions": [
+                    "2.4.9"
+                ]
+            },
+            "3.14": {
+                "minimum_package_version": "2.4.9",
+                "maximum_package_version": "2.4.9",
+                "tested_versions": [
+                    "2.4.9"
+                ]
+            }
+        }
+    },
+    {
         "dependency": "mlflow",
         "integration": "mlflow",
         "auto-instrumented": false,
@@ -3692,58 +3734,58 @@
         "python_versions": {
             "3.9": {
                 "minimum_package_version": "1.0.0",
-                "maximum_package_version": "2.40.0",
+                "maximum_package_version": "2.45.0",
                 "tested_versions": [
                     "1.0.0",
                     "1.30.1",
                     "1.66.0",
                     "1.76.2",
                     "1.109.1",
-                    "2.40.0"
+                    "2.45.0"
                 ]
             },
             "3.10": {
                 "minimum_package_version": "1.0.0",
-                "maximum_package_version": "2.40.0",
+                "maximum_package_version": "2.45.0",
                 "tested_versions": [
                     "1.0.0",
                     "1.30.1",
                     "1.66.0",
                     "1.76.2",
                     "1.109.1",
-                    "2.40.0"
+                    "2.45.0"
                 ]
             },
             "3.11": {
                 "minimum_package_version": "1.0.0",
-                "maximum_package_version": "2.40.0",
+                "maximum_package_version": "2.45.0",
                 "tested_versions": [
                     "1.0.0",
                     "1.30.1",
                     "1.66.0",
                     "1.76.2",
                     "1.109.1",
-                    "2.40.0"
+                    "2.45.0"
                 ]
             },
             "3.12": {
                 "minimum_package_version": "1.66.0",
-                "maximum_package_version": "2.40.0",
+                "maximum_package_version": "2.45.0",
                 "tested_versions": [
                     "1.66.0",
                     "1.76.2",
                     "1.109.1",
-                    "2.40.0"
+                    "2.45.0"
                 ]
             },
             "3.13": {
                 "minimum_package_version": "1.66.0",
-                "maximum_package_version": "2.40.0",
+                "maximum_package_version": "2.45.0",
                 "tested_versions": [
                     "1.66.0",
                     "1.76.2",
                     "1.109.1",
-                    "2.40.0"
+                    "2.45.0"
                 ]
             }
         }
