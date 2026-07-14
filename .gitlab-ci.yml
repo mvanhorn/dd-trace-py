@@ -394,7 +394,7 @@ detect_circular_imports:
       echo "Circular-import baseline: origin/${CYCLES_BASE_REF}"
       cd dd-trace-py
       git fetch origin -- "${CYCLES_BASE_REF}"
-      git checkout --detach -- "origin/${CYCLES_BASE_REF}"
+      git checkout --detach "origin/${CYCLES_BASE_REF}"
       cd ..
     # Analyse the target branch ddtrace using the PR version of cycles.py (has uv metadata)
     - uv run --script cycles.py analyze --root dd-trace-py/ddtrace cycles-base.json
