@@ -56,7 +56,7 @@ cdef class _SamplerState:
 # to share sampler state, because the profiler is process scoped, not thread scoped
 cdef _SamplerState _state = None
 
-# Reentrancy guard: _collect_exception can trigger Raise callbacks
+# Reentrancy guard: _collect_exception can trigger RAISE callbacks
 # (via str(exc_value) raising, or ddup internals). Without this guard,
 # the callback would recurse.
 cdef bint _collecting = False
